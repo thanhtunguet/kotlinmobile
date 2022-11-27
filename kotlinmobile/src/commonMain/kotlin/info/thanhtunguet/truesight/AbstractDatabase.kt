@@ -8,23 +8,23 @@ import kotlin.reflect.KClass
 abstract class AbstractDatabase {
     abstract val schema: Set<KClass<out RealmObject>>
 
-    protected var realmObject: Realm
+    protected var mRealm: Realm
 
     public val realm: Realm
-        get() = realmObject
+        get() = mRealm
 
     init {
         val config = RealmConfiguration
             .Builder(schema)
             .build()
-        realmObject = Realm.open(config)
+        mRealm = Realm.open(config)
     }
 
     fun close() {
-        realmObject.close()
+        mRealm.close()
     }
 
     fun isClosed(): Boolean {
-        return realmObject.isClosed()
+        return mRealm.isClosed()
     }
 }
